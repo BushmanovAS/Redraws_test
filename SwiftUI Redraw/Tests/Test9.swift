@@ -28,19 +28,25 @@ struct Test9: View {
     }
     
     var content: some View {
-        VStack {
-            Text("Counter: \(counter)")
-                .font(.system(size: 30.0))
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10.0)
-                        .fill(.white)
-                )
+        ZStack {
+            Color.random
             
-            TestButton {
-                counter += 1
+            VStack {
+                Text("Counter: \(counter)")
+                    .font(.system(size: 30.0))
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10.0)
+                            .fill(.white)
+                    )
+                
+                TestButton {
+                    counter += 1
+                }
             }
         }
+        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+        .frame(width: 300.0, height: 300.0)
     }
 }
 

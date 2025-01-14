@@ -18,11 +18,15 @@ struct Test10: View {
     var body: some View {
         ZStack {
             Color.random
+            
+            VStack {
+                Test10_1(counter: counter)
+                
+                TestButton {
+                    counter += 1
+                }
+            }
 
-            Test10_1(counter: $counter)
-                .padding(70.0)
-                .background(Color.random)
-                .clipShape(RoundedRectangle(cornerRadius: 17.0))
         }
         .showGraph()
         .ignoresSafeArea()
@@ -31,7 +35,9 @@ struct Test10: View {
 
 struct Test10_1: View {
     
-    @Binding var counter: Int
+//    @Binding var counter: Int
+    
+    let counter: Int
     
     var body: some View {
         ZStack {
@@ -45,14 +51,10 @@ struct Test10_1: View {
                         RoundedRectangle(cornerRadius: 10.0)
                             .fill(.white)
                     )
-                
-                TestButton {
-                    counter += 1
-                }
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 10.0))
-        .frame(width: 250.0, height: 250.0)
+        .frame(width: 300.0, height: 300.0)
     }
 }
 
