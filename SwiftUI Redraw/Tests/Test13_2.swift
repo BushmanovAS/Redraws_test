@@ -11,18 +11,14 @@ import Combine
 
 final class Test13_2ViewModel: ObservableObject {
     @Published var title: String = "Test13"
-//    var subject: CurrentValueSubject<String, Never> = .init("0")
+    var subject: CurrentValueSubject<String, Never> = .init("0")
 }
 
 struct Test13_2: View {
     
     @StateObject var viewModel = Test13_2ViewModel()
     
-    @State var subtitle: String = ""
-    
     var body: some View {
-        let _ = Self._printChanges()
-        
         ZStack {
             Color.random
                 .ignoresSafeArea()
@@ -32,32 +28,28 @@ struct Test13_2: View {
                     Text(viewModel.title)
                         .font(.system(size: 80.0))
                     
-                    Test13_3(subtitle: $subtitle)
+                    Test13_3(subject: viewModel.subject)
                 }
                 
                 VStack() {
                     TestButton {
-                        viewModel.title += "+"
-                    }
-                    
-                    TestButton {
-                        subtitle = randomString()
-//                        viewModel.subject.send(randomString())
+                        viewModel.subject.send(random())
                     }
                 }
             }
         }
     }
-    
-    func randomString() -> String {
-        String(Int.random(in: 0...100))
-    }
+}
+
+func random() -> String {
+    String(Int.random(in: 0...100))
 }
 
 struct Test13_3: View {
     
-//    var subject: CurrentValueSubject<String, Never>
-    @Binding var subtitle: String
+    let subject: CurrentValueSubject<String, Never>
+    
+    @State private var subtitle: String = "0"
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10.0)
@@ -71,12 +63,13 @@ struct Test13_3: View {
                         RoundedRectangle(cornerRadius: 10.0)
                             .fill(.white)
                     )
-//                    .onReceive(subject) { subtitle in
-//                        self.subtitle = subtitle
-//                    }
+                    .onReceive(subject) { subtitle in
+                        self.subtitle = subtitle
+                    }
             }
     }
 }
+
 
 #Preview {
     Test13_2()

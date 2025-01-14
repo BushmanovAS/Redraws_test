@@ -18,12 +18,14 @@ struct Test12: View {
     @State private var number: Int = 1
     
     var body: some View {
-        VStack {
-            Test12_1(number: number)
-                .equatable()
-            
-            TestButton {
-                number = Int.random(in: 1...100)
+        ZStack {
+            VStack {
+                Test12_1(number: $number)
+                    .equatable()
+                
+                TestButton {
+                    number = Int.random(in: 1...100)
+                }
             }
         }
     }
@@ -31,7 +33,7 @@ struct Test12: View {
 
 struct Test12_1: View, Equatable {
     
-    let number: Int
+    @Binding var number: Int
     
     var body: some View {
         let _ = print("\(number.isEven ? "✅" : "🛑")")

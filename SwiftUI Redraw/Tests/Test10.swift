@@ -20,7 +20,7 @@ struct Test10: View {
             Color.random
             
             VStack {
-                Test10_1(counter: counter)
+                Test10_1(counter: $counter)
                 
                 TestButton {
                     counter += 1
@@ -35,9 +35,9 @@ struct Test10: View {
 
 struct Test10_1: View {
     
-//    @Binding var counter: Int
+    @Binding var counter: Int
     
-    let counter: Int
+//    let counter: Int
     
     var body: some View {
         ZStack {
